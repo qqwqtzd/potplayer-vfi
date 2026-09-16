@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cstring>
 
+#include <dvdmedia.h>
+
 #include "core/BlendEngine.h"
 #include "gpu/OfaEngine.h"
 
