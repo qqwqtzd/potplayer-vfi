@@ -8,8 +8,6 @@
 namespace vfi {
 namespace {
 
-using ComPtr = Microsoft::WRL::ComPtr;
-
 std::wstring ModuleDirectory() {
     HMODULE module = nullptr;
     GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
