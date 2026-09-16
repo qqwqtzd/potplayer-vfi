@@ -96,6 +96,7 @@ target_link_libraries(potplayer_vfi PRIVATE
     dxgi
     d3dcompiler
     dxguid
+    winmm           # timeSetEvent / timeGetTime (DirectShow base classes)
 )
 
 set_target_properties(potplayer_vfi PROPERTIES
