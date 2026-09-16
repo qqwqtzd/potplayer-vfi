@@ -4,7 +4,7 @@
 
 CVfiPropertyPage::CVfiPropertyPage(LPUNKNOWN lpunk, HRESULT* phr)
     : CBasePropertyPage(NAME("VFI Properties"), lpunk, IDD_VFI_PROPERTIES,
-                        L"VFI Settings") {
+                        IDS_VFI_TITLE) {
     if (phr && FAILED(*phr)) {
         return;
     }
@@ -117,7 +117,7 @@ HRESULT CVfiPropertyPage::OnApplyChanges() {
     return S_OK;
 }
 
-BOOL CVfiPropertyPage::OnReceiveMessage(HWND hwnd, UINT msg, WPARAM wParam,
+INT_PTR CVfiPropertyPage::OnReceiveMessage(HWND hwnd, UINT msg, WPARAM wParam,
                                         LPARAM lParam) {
     switch (msg) {
         case WM_COMMAND:

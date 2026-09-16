@@ -23,7 +23,7 @@ public:
     HRESULT OnDeactivate() override;
     HRESULT OnApplyChanges() override;
 
-    BOOL OnReceiveMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) override;
+    INT_PTR OnReceiveMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) override;
 
 private:
     void PopulateMultipliers();

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <windows.h>
+
 #include <d3d11.h>
 #include <wrl/client.h>
 
@@ -7,6 +9,8 @@
 #include "gpu/GpuOpticalFlow.h"
 
 namespace vfi {
+
+using ComPtr = Microsoft::WRL::ComPtr;
 
 // Owns the D3D11 device and every GPU resource the interpolation needs, and
 // runs the three compute passes end to end:
@@ -41,8 +45,6 @@ public:
     bool Interpolate(float alpha, const Frame& out);
 
 private:
-    using ComPtr = Microsoft::WRL::ComPtr;
-
     bool CreateDevice();
     bool CreateShaders();
     bool CreateViews();

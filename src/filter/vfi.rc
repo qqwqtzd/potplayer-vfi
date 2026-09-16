@@ -17,3 +17,8 @@ BEGIN
                     BS_AUTOCHECKBOX | WS_TABSTOP, 10, 52, 216, 10
     LTEXT           "", IDC_STATIC_NOTE, 10, 74, 216, 48
 END
+
+STRINGTABLE
+BEGIN
+    IDS_VFI_TITLE   "VFI Settings"
+END
