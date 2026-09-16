@@ -1,0 +1,19 @@
+#include <windows.h>
+
+#include "resource.h"
+
+IDD_VFI_PROPERTIES DIALOGEX 0, 0, 236, 132
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL "Enable frame interpolation (NVIDIA Optical Flow)",
+            IDC_CHK_INTERPOLATION, "Button",
+            BS_AUTOCHECKBOX | WS_TABSTOP, 10, 10, 216, 10
+    LTEXT           "Multiplier:", -1, 10, 30, 44, 10
+    COMBOBOX        IDC_CMB_MULTIPLIER, 62, 28, 60, 80,
+                    CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Enable super resolution (RTX Video SDK)",
+                    IDC_CHK_SUPERRES, "Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP, 10, 52, 216, 10
+    LTEXT           "", IDC_STATIC_NOTE, 10, 74, 216, 48
+END
