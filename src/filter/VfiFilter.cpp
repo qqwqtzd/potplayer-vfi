@@ -136,7 +136,7 @@ HRESULT CVfiFilter::GetMediaType(int iPosition, CMediaType* pMediaType) {
         return VFW_S_NO_MORE_ITEMS;
     }
     const CMediaType& in = m_pInput->CurrentMediaType();
-    if (in.majortype == MEDIATYPE_None) {
+    if (in.majortype == GUID_NULL) {
         return VFW_S_NO_MORE_ITEMS;
     }
 
@@ -144,18 +144,24 @@ HRESULT CVfiFilter::GetMediaType(int iPosition, CMediaType* pMediaType) {
 
     // Advertise the up-converted frame rate so the renderer/sync logic knows
     // it will receive `mult` times as many samples.
-    const int mult = std::max(1, EffectiveMultiplier());
+    const int mult = (EffectiveMultiplier() > 1) ? EffectiveMultiplier() : 1;
     if (pMediaType->formattype == FORMAT_VideoInfo) {
         auto* pvih = reinterpret_cast<VIDEOINFOHEADER*>(pMediaType->pbFormat);
         if (pvih->AvgTimePerFrame > 0) {
-            pvih->AvgTimePerFrame =
-                std::max<REFERENCE_TIME>(1, pvih->AvgTimePerFrame / mult);
+            REFERENCE_TIME avg = pvih->AvgTimePerFrame / mult;
+            if (avg < 1) {
+                avg = 1;
+            }
+            pvih->AvgTimePerFrame = avg;
         }
     } else if (pMediaType->formattype == FORMAT_VideoInfo2) {
         auto* pvih2 = reinterpret_cast<VIDEOINFOHEADER2*>(pMediaType->pbFormat);
         if (pvih2->AvgTimePerFrame > 0) {
-            pvih2->AvgTimePerFrame =
-                std::max<REFERENCE_TIME>(1, pvih2->AvgTimePerFrame / mult);
+            REFERENCE_TIME avg = pvih2->AvgTimePerFrame / mult;
+            if (avg < 1) {
+                avg = 1;
+            }
+            pvih2->AvgTimePerFrame = avg;
         }
     }
     return S_OK;
@@ -170,8 +176,8 @@ HRESULT CVfiFilter::DecideBufferSize(IMemAllocator* pAlloc, ALLOCATOR_PROPERTIES
     }
 
     ALLOCATOR_PROPERTIES actual{};
-    pProps->cbBuffer = std::max<long>(pProps->cbBuffer, m_frameBytes);
-    pProps->cBuffers = std::max<long>(pProps->cBuffers, kOutputBufferCount);
+    pProps->cbBuffer = std::max<long>(pProps->cbBuffer, static_cast<long>(m_frameBytes));
+    pProps->cBuffers = std::max<long>(pProps->cBuffers, static_cast<long>(kOutputBufferCount));
     if (pProps->cbAlign < 1) {
         pProps->cbAlign = 1;
     }
