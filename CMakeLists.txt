@@ -16,7 +16,6 @@ if(MSVC)
         _WINDOWS
         UNICODE
         _UNICODE
-        WIN32_LEAN_AND_MEAN
         NOMINMAX
         _CRT_SECURE_NO_WARNINGS
     )

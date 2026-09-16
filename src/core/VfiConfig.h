@@ -6,6 +6,7 @@
 
 #include <windows.h>
 
+#include <objbase.h>
 #include <cstdint>
 
 namespace vfi {
