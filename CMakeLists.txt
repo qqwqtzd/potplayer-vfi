@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(potplayer_vfi VERSION 0.1.0 LANGUAGES CXX)
+project(potplayer_vfi VERSION 0.1.0 LANGUAGES CXX RC)
 
 # DirectShow is a Windows-only technology. This project is authored on any OS
 # but can only be configured/built on Windows with the MSVC toolchain, because
