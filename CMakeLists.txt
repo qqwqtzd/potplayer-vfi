@@ -74,6 +74,7 @@ target_link_libraries(nvof_wrapper PUBLIC d3d11 dxgi)
 add_library(potplayer_vfi SHARED
     src/filter/dllmain.cpp
     src/filter/VfiFilter.cpp
+    src/filter/VfiFilter.def
     src/core/BlendEngine.cpp
     src/core/VfiConfig.cpp
     src/gpu/GpuOpticalFlow.cpp
