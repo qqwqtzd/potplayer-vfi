@@ -103,7 +103,7 @@ bool GpuOpticalFlow::UploadLuma(int slot, const uint8_t* luma, int stride) {
     }
 
     if (stride == width_) {
-        buffer->UploadData(luma);
+        buffer->UploadData(luma, nullptr, nullptr);
         return true;
     }
 
@@ -115,7 +115,7 @@ bool GpuOpticalFlow::UploadLuma(int slot, const uint8_t* luma, int stride) {
                     luma + static_cast<size_t>(y) * stride,
                     static_cast<size_t>(width_));
     }
-    buffer->UploadData(packed.data());
+    buffer->UploadData(packed.data(), nullptr, nullptr);
     return true;
 }
 

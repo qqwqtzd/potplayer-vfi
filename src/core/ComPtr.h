@@ -16,8 +16,21 @@ public:
     ComPtr(std::nullptr_t) noexcept {}
     explicit ComPtr(T* p) noexcept : p_(p) {}
 
-    ComPtr(const ComPtr&) = delete;
-    ComPtr& operator=(const ComPtr&) = delete;
+    ComPtr(const ComPtr& other) noexcept : p_(other.p_) {
+        if (p_) {
+            p_->AddRef();
+        }
+    }
+    ComPtr& operator=(const ComPtr& other) noexcept {
+        if (this != &other) {
+            if (other.p_) {
+                other.p_->AddRef();
+            }
+            Reset();
+            p_ = other.p_;
+        }
+        return *this;
+    }
 
     ComPtr(ComPtr&& other) noexcept : p_(other.p_) { other.p_ = nullptr; }
     ComPtr& operator=(ComPtr&& other) noexcept {
