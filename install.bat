@@ -24,7 +24,16 @@ if not exist "%~dp0shaders\vfi.hlsl" (
 echo Registering "%AX%" ...
 regsvr32 /s "%AX%"
 if errorlevel 1 (
-    echo [X] Registration failed.
+    echo [X] Registration failed - showing details...
+    regsvr32 "%AX%"
+    echo.
+    echo Common causes:
+    echo   * The file was downloaded and is blocked by Windows:
+    echo     right-click VfiFilter.ax - Properties - tick "Unblock" - OK,
+    echo     then run this script again.
+    echo   * A 32-bit regsvr32 was used for a 64-bit .ax:
+    echo     run from the normal 64-bit command prompt.
+    echo   * Missing Microsoft Visual C++ Redistributable (VC++ 2015-2022 x64).
     pause
     exit /b 1
 )

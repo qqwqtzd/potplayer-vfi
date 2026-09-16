@@ -11,6 +11,9 @@ if(NOT WIN32)
 endif()
 
 if(MSVC)
+    # Static CRT: the .ax must not depend on the VC++ Redistributable on the
+    # target machine (a common cause of regsvr32 failures).
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
     add_compile_options(/W4 /MP /permissive-)
     add_compile_definitions(
         _WINDOWS
