@@ -5,6 +5,7 @@
 // proved to be order-sensitive across translation units.
 
 #include <cstddef>
+#include <memory>
 #include <utility>
 
 namespace vfi {
@@ -22,7 +23,7 @@ public:
         }
     }
     ComPtr& operator=(const ComPtr& other) noexcept {
-        if (this != &other) {
+        if (this != std::addressof(other)) {
             if (other.p_) {
                 other.p_->AddRef();
             }
@@ -34,7 +35,7 @@ public:
 
     ComPtr(ComPtr&& other) noexcept : p_(other.p_) { other.p_ = nullptr; }
     ComPtr& operator=(ComPtr&& other) noexcept {
-        if (this != &other) {
+        if (this != std::addressof(other)) {
             Reset();
             p_ = other.p_;
             other.p_ = nullptr;
